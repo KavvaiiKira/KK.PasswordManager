@@ -1,6 +1,8 @@
 ﻿using KK.PasswordManager.Constants;
+using KK.PasswordManager.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace KK.PasswordManager.Services
 {
@@ -26,7 +28,48 @@ namespace KK.PasswordManager.Services
             }
         }
 
-        private byte[] EncryptPassword(string password)
+        public IEnumerable<PasswordModel> GetPasswords()
+        {
+            var json = File.ReadAllText(_passwordsFilePath);
+            var passwords = JsonSerializer.Deserialize<IEnumerable<PasswordModel>>(json);
+
+            return passwords ?? Enumerable.Empty<PasswordModel>();
+        }
+
+        public void AddPassword(PasswordModel newPassword)
+        {
+            var passwords = GetPasswords().ToList();
+
+            newPassword.Id = passwords.Any() ?
+                passwords.Max(x => x.Id) + 1 :
+                1;
+
+            newPassword.Password = EncryptPassword(newPassword.Password);
+
+            passwords.Add(newPassword);
+
+            var json = JsonSerializer.Serialize(passwords);
+
+            File.WriteAllText(_passwordsFilePath, json);
+        }
+
+        public void DeletePassword(int passwordId)
+        {
+            var passwords = GetPasswords().ToList();
+
+            passwords.RemoveAll(x => x.Id == passwordId);
+
+            foreach (var password in passwords.Where(s => s.Id > passwordId))
+            {
+                password.Id--;
+            }
+
+            var json = JsonSerializer.Serialize(passwords);
+
+            File.WriteAllText(_passwordsFilePath, json);
+        }
+
+        private string EncryptPassword(string password)
         {
             using (var aes = Aes.Create())
             {
@@ -44,13 +87,15 @@ namespace KK.PasswordManager.Services
                         writer.Write(password);
                     }
 
-                    return ms.ToArray();
+                    return Convert.ToBase64String(ms.ToArray());
                 }
             }
         }
 
-        private string DecryptToString(byte[] cipherText)
+        private string DecryptToString(string cipherText)
         {
+            var cipher = Convert.FromBase64String(cipherText);
+
             using (var aes = Aes.Create())
             {
                 aes.Key = _driveKey;
@@ -58,7 +103,7 @@ namespace KK.PasswordManager.Services
                 aes.Padding = PaddingMode.PKCS7;
                 aes.Mode = CipherMode.CBC;
 
-                using (var ms = new MemoryStream(cipherText))
+                using (var ms = new MemoryStream(cipher))
                 using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
                 using (var reader = new StreamReader(cs, Encoding.UTF8))
                 {
