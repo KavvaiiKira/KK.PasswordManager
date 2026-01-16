@@ -22,7 +22,7 @@ namespace KK.PasswordManager.Forms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                PIN = _hashService.HashWithStringSalt(PINTextBox.Text, PINTextBox.Text);
+                PIN = PINTextBox.Text;
                 Close();
             }
         }

@@ -1,6 +1,5 @@
 using KK.PasswordManager.Constants;
 using KK.PasswordManager.Forms;
-using KK.PasswordManager.Models;
 using KK.PasswordManager.Services;
 
 namespace KK.PasswordManager
@@ -21,54 +20,60 @@ namespace KK.PasswordManager
 
             var passwordService = new PasswordService();
             var userService = new UserService();
+            var hashService = new HashService();
 
             ApplicationConfiguration.Initialize();
 
-            User? user;
+            byte[]? driveKey;
 
             if (userService.IsNewUser())
             {
-                var registerForm = new RegisterForm();
+                var registerForm = new RegisterForm(hashService);
 
                 registerForm.ShowDialog();
 
                 var registeredUser = registerForm.GetUser();
-                if (registeredUser == null)
+                driveKey = registerForm.GetDriveKey();
+
+                if (registeredUser == null ||
+                    driveKey == null)
                 {
                     return;
                 }
                 else
                 {
-                    userService.SaveUser(registeredUser!);
-                    user = registeredUser;
+                    userService.SaveUser(registeredUser);
                 }
             }
             else
             {
-                user = userService.GetSavedUser();
-
+                var user = userService.GetSavedUser();
                 var PINENterForm = new PINEnterForm();
 
                 PINENterForm.ShowDialog();
 
                 var PIN = PINENterForm.GetPIN();
-                if (string.IsNullOrWhiteSpace(PIN) ||
-                    PIN != user.PIN)
+                if (string.IsNullOrWhiteSpace(PIN))
                 {
                     return;
                 }
-            }
 
-            if (user == null)
-            {
-                return;
+                var splitted = user.PIN.Split(':');
+                var salt = splitted.First();
+                var hashedPIN = hashService.HashWithSalt(PIN, splitted.First());
+
+                if (!hashService.IsPINValid(hashedPIN, splitted.Last()))
+                {
+                    return;
+                }
+
+                driveKey = hashService.GetDeriveKey(PIN, salt);
             }
 
             Application.Run(
                 new MainForm(
                     passwordService,
-                    userService,
-                    user));
+                    driveKey!));
         }
     }
 }

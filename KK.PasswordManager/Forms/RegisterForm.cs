@@ -8,15 +8,18 @@ namespace KK.PasswordManager.Forms
         private readonly HashService _hashService;
 
         private User? user;
+        private byte[]? driveKey;
 
-        public RegisterForm()
+        public RegisterForm(HashService hashService)
         {
-            _hashService = new HashService();
+            _hashService = hashService;
 
             InitializeComponent();
         }
 
         public User? GetUser() => user;
+
+        public byte[]? GetDriveKey() => driveKey;
 
         private void SubmitButton_Click(object sender, EventArgs e) => Submit();
 
@@ -39,11 +42,17 @@ namespace KK.PasswordManager.Forms
             if (!string.IsNullOrWhiteSpace(NameTextBox.Text) &&
                 !string.IsNullOrWhiteSpace(PINTextBox.Text))
             {
+                var hashedPIN = _hashService.Hash(PINTextBox.Text);
+
                 user = new User()
                 {
                     Name = NameTextBox.Text,
-                    PIN = _hashService.HashWithStringSalt(PINTextBox.Text, PINTextBox.Text)
+                    PIN = hashedPIN
                 };
+
+                driveKey = _hashService.GetDeriveKey(
+                    PINTextBox.Text,
+                    hashedPIN.Split(':').First());
 
                 Close();
             }
