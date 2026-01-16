@@ -48,19 +48,19 @@
             PINPanel.RowCount = 2;
             PINPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             PINPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            PINPanel.Size = new Size(254, 101);
+            PINPanel.Size = new Size(344, 101);
             PINPanel.TabIndex = 0;
             // 
             // PINTextBox
             // 
             PINTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             PINTextBox.BorderStyle = BorderStyle.FixedSingle;
-            PINTextBox.Font = new Font("Exo 2", 14.25F, FontStyle.Bold);
+            PINTextBox.Font = new Font("Exo 2", 14F, FontStyle.Bold);
             PINTextBox.Location = new Point(23, 53);
             PINTextBox.MaxLength = 255;
             PINTextBox.Name = "PINTextBox";
             PINTextBox.PasswordChar = '*';
-            PINTextBox.Size = new Size(208, 30);
+            PINTextBox.Size = new Size(298, 30);
             PINTextBox.TabIndex = 0;
             PINTextBox.KeyDown += PINTextBox_KeyDown;
             // 
@@ -69,10 +69,10 @@
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.FlatStyle = FlatStyle.Flat;
-            label1.Font = new Font("Exo 2", 14.25F, FontStyle.Bold);
-            label1.Location = new Point(23, 22);
+            label1.Font = new Font("Exo 2", 16F, FontStyle.Bold);
+            label1.Location = new Point(23, 18);
             label1.Name = "label1";
-            label1.Size = new Size(49, 28);
+            label1.Size = new Size(56, 32);
             label1.TabIndex = 1;
             label1.Text = "PIN:";
             // 
@@ -81,7 +81,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(114, 97, 170);
-            ClientSize = new Size(254, 101);
+            ClientSize = new Size(344, 101);
             Controls.Add(PINPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;

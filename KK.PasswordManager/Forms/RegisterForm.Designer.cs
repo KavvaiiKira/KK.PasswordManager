@@ -57,18 +57,18 @@
             RegistrationPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             RegistrationPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             RegistrationPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            RegistrationPanel.Size = new Size(342, 215);
+            RegistrationPanel.Size = new Size(344, 211);
             RegistrationPanel.TabIndex = 0;
             // 
             // NameTextBox
             // 
             NameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             NameTextBox.BorderStyle = BorderStyle.FixedSingle;
-            NameTextBox.Font = new Font("Exo 2", 14.25F, FontStyle.Bold);
-            NameTextBox.Location = new Point(23, 44);
+            NameTextBox.Font = new Font("Exo 2", 14F, FontStyle.Bold);
+            NameTextBox.Location = new Point(23, 43);
             NameTextBox.MaxLength = 255;
             NameTextBox.Name = "NameTextBox";
-            NameTextBox.Size = new Size(296, 30);
+            NameTextBox.Size = new Size(298, 30);
             NameTextBox.TabIndex = 0;
             NameTextBox.KeyDown += NameTextBox_KeyDown;
             // 
@@ -76,12 +76,12 @@
             // 
             PINTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             PINTextBox.BorderStyle = BorderStyle.FixedSingle;
-            PINTextBox.Font = new Font("Exo 2", 14.25F, FontStyle.Bold);
-            PINTextBox.Location = new Point(23, 126);
+            PINTextBox.Font = new Font("Exo 2", 14F, FontStyle.Bold);
+            PINTextBox.Location = new Point(23, 123);
             PINTextBox.MaxLength = 255;
             PINTextBox.Name = "PINTextBox";
             PINTextBox.PasswordChar = '*';
-            PINTextBox.Size = new Size(296, 30);
+            PINTextBox.Size = new Size(298, 30);
             PINTextBox.TabIndex = 1;
             PINTextBox.KeyDown += PINTextBox_KeyDown;
             // 
@@ -90,10 +90,10 @@
             NameLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             NameLabel.AutoSize = true;
             NameLabel.FlatStyle = FlatStyle.Flat;
-            NameLabel.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold);
-            NameLabel.Location = new Point(23, 17);
+            NameLabel.Font = new Font("Exo 2", 16F, FontStyle.Bold);
+            NameLabel.Location = new Point(23, 8);
             NameLabel.Name = "NameLabel";
-            NameLabel.Size = new Size(71, 24);
+            NameLabel.Size = new Size(80, 32);
             NameLabel.TabIndex = 2;
             NameLabel.Text = "Name:";
             // 
@@ -102,10 +102,10 @@
             SubmitButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             SubmitButton.BackColor = Color.FromArgb(124, 204, 180);
             SubmitButton.FlatStyle = FlatStyle.Flat;
-            SubmitButton.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold);
-            SubmitButton.Location = new Point(23, 167);
+            SubmitButton.Font = new Font("Exo 2", 16F, FontStyle.Bold);
+            SubmitButton.Location = new Point(23, 163);
             SubmitButton.Name = "SubmitButton";
-            SubmitButton.Size = new Size(296, 45);
+            SubmitButton.Size = new Size(298, 45);
             SubmitButton.TabIndex = 2;
             SubmitButton.Text = "Submit";
             SubmitButton.UseVisualStyleBackColor = false;
@@ -116,10 +116,10 @@
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.FlatStyle = FlatStyle.Flat;
-            label1.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold);
-            label1.Location = new Point(23, 99);
+            label1.Font = new Font("Exo 2", 16F, FontStyle.Bold);
+            label1.Location = new Point(23, 88);
             label1.Name = "label1";
-            label1.Size = new Size(49, 24);
+            label1.Size = new Size(56, 32);
             label1.TabIndex = 3;
             label1.Text = "PIN:";
             // 
@@ -128,7 +128,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(114, 97, 170);
-            ClientSize = new Size(342, 215);
+            ClientSize = new Size(344, 211);
             Controls.Add(RegistrationPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;

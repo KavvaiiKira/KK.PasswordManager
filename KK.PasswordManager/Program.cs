@@ -19,6 +19,8 @@ namespace KK.PasswordManager
             }
 
             PasswordService? passwordService;
+            string? name;
+
             var userService = new UserService();
             var hashService = new HashService();
 
@@ -40,6 +42,7 @@ namespace KK.PasswordManager
 
                 userService.SaveUser(registeredUser);
                 passwordService = new PasswordService(driveKey, registeredUser.IV);
+                name = registeredUser.Name;
             }
             else
             {
@@ -63,10 +66,14 @@ namespace KK.PasswordManager
                     return;
                 }
 
-                passwordService = new PasswordService(hashService.GetDeriveKey(PIN, salt), user.IV);
+                passwordService = new PasswordService(
+                    hashService.GetDeriveKey(PIN, salt),
+                    user.IV);
+
+                name = user.Name;
             }
 
-            Application.Run(new MainForm(passwordService));
+            Application.Run(new MainForm(passwordService, name));
         }
     }
 }
