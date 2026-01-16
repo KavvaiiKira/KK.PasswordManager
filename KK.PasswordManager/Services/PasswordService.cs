@@ -48,5 +48,23 @@ namespace KK.PasswordManager.Services
                 }
             }
         }
+
+        private string DecryptToString(byte[] cipherText)
+        {
+            using (var aes = Aes.Create())
+            {
+                aes.Key = _driveKey;
+                aes.IV = _iv;
+                aes.Padding = PaddingMode.PKCS7;
+                aes.Mode = CipherMode.CBC;
+
+                using (var ms = new MemoryStream(cipherText))
+                using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
+                using (var reader = new StreamReader(cs, Encoding.UTF8))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
     }
 }
