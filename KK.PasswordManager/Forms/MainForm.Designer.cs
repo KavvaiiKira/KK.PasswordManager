@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            SuspendLayout();
+            // 
+            // MainForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(114, 97, 170);
             ClientSize = new Size(800, 450);
-            Text = "Form1";
+            Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "KK.PasswordManager";
+            ResumeLayout(false);
         }
 
         #endregion

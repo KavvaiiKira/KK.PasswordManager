@@ -1,4 +1,4 @@
-using KK.PasswordManager.Forms;
+using KK.PasswordManager.Models;
 using KK.PasswordManager.Services;
 
 namespace KK.PasswordManager
@@ -7,13 +7,16 @@ namespace KK.PasswordManager
     {
         private readonly UserService _userService;
         private readonly PasswordService _passwordService;
+        private readonly User _user;
 
         public MainForm(
             PasswordService passwordService,
-            UserService userService)
+            UserService userService,
+            User user)
         {
             _passwordService = passwordService;
             _userService = userService;
+            _user = user;
 
             InitializeComponent();
         }

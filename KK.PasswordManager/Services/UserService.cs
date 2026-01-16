@@ -24,8 +24,9 @@ namespace KK.PasswordManager.Services
         public void SaveUser(User user) =>
             File.WriteAllText(_userFilePath, JsonSerializer.Serialize(user));
 
-        public bool IsPINValid(string PIN) =>
-            PIN == (JsonSerializer.Deserialize<User>(File.ReadAllText(_userFilePath)) ??
-                throw new Exception("Can't deserialize user!")).PIN;
+        public User GetSavedUser() =>
+            JsonSerializer.Deserialize<User>(File.ReadAllText(_userFilePath)) ??
+                throw new Exception("Can't deserialize user!");
+
     }
 }

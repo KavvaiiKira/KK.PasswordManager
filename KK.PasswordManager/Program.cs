@@ -1,5 +1,6 @@
 using KK.PasswordManager.Constants;
 using KK.PasswordManager.Forms;
+using KK.PasswordManager.Models;
 using KK.PasswordManager.Services;
 
 namespace KK.PasswordManager
@@ -23,40 +24,51 @@ namespace KK.PasswordManager
 
             ApplicationConfiguration.Initialize();
 
+            User? user;
+
             if (userService.IsNewUser())
             {
                 var registerForm = new RegisterForm();
 
                 registerForm.ShowDialog();
 
-                var user = registerForm.GetUser();
-                if (user == null)
+                var registeredUser = registerForm.GetUser();
+                if (registeredUser == null)
                 {
                     return;
                 }
                 else
                 {
-                    userService.SaveUser(user!);
+                    userService.SaveUser(registeredUser!);
+                    user = registeredUser;
                 }
             }
             else
             {
+                user = userService.GetSavedUser();
+
                 var PINENterForm = new PINEnterForm();
 
                 PINENterForm.ShowDialog();
 
                 var PIN = PINENterForm.GetPIN();
                 if (string.IsNullOrWhiteSpace(PIN) ||
-                    !userService.IsPINValid(PIN))
+                    PIN != user.PIN)
                 {
                     return;
                 }
             }
 
+            if (user == null)
+            {
+                return;
+            }
+
             Application.Run(
                 new MainForm(
                     passwordService,
-                    userService));
+                    userService,
+                    user));
         }
     }
 }
