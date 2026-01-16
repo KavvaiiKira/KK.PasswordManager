@@ -18,13 +18,11 @@ namespace KK.PasswordManager
                 Directory.CreateDirectory(dataDirectory);
             }
 
-            var passwordService = new PasswordService();
+            PasswordService? passwordService;
             var userService = new UserService();
             var hashService = new HashService();
 
             ApplicationConfiguration.Initialize();
-
-            byte[]? driveKey;
 
             if (userService.IsNewUser())
             {
@@ -33,17 +31,15 @@ namespace KK.PasswordManager
                 registerForm.ShowDialog();
 
                 var registeredUser = registerForm.GetUser();
-                driveKey = registerForm.GetDriveKey();
+                var driveKey = registerForm.GetDriveKey();
 
-                if (registeredUser == null ||
-                    driveKey == null)
+                if (registeredUser == null || driveKey == null)
                 {
                     return;
                 }
-                else
-                {
-                    userService.SaveUser(registeredUser);
-                }
+
+                userService.SaveUser(registeredUser);
+                passwordService = new PasswordService(driveKey, registeredUser.IV);
             }
             else
             {
@@ -67,13 +63,10 @@ namespace KK.PasswordManager
                     return;
                 }
 
-                driveKey = hashService.GetDeriveKey(PIN, salt);
+                passwordService = new PasswordService(hashService.GetDeriveKey(PIN, salt), user.IV);
             }
 
-            Application.Run(
-                new MainForm(
-                    passwordService,
-                    driveKey!));
+            Application.Run(new MainForm(passwordService));
         }
     }
 }

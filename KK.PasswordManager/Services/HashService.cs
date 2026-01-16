@@ -31,6 +31,8 @@ namespace KK.PasswordManager.Services
             }
         }
 
+        public byte[] GetIV() => GenerateSalt()[..16]; // 16 byte for AES
+
         public bool IsPINValid(string PIN, string savedPIN) =>
             SecureCompare(PIN, savedPIN);
 

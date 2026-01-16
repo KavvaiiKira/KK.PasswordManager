@@ -5,5 +5,7 @@
         public string Name { get; set; }
 
         public string PIN { get; set; }
+
+        public byte[] IV { get; set; }
     }
 }

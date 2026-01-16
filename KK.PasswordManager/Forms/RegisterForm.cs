@@ -47,7 +47,8 @@ namespace KK.PasswordManager.Forms
                 user = new User()
                 {
                     Name = NameTextBox.Text,
-                    PIN = hashedPIN
+                    PIN = hashedPIN,
+                    IV = _hashService.GetIV()
                 };
 
                 driveKey = _hashService.GetDeriveKey(
