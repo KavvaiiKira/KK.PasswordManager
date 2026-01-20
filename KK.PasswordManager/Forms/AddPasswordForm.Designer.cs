@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddPasswordForm));
             NewPasswordPanel = new TableLayoutPanel();
             ActionsPanel = new TableLayoutPanel();
             CreateButton = new Button();
@@ -228,6 +229,7 @@
             ClientSize = new Size(344, 391);
             Controls.Add(NewPasswordPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "AddPasswordForm";

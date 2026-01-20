@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             MainPanel = new TableLayoutPanel();
             HeaderPanel = new TableLayoutPanel();
             SearchPanel = new TableLayoutPanel();
@@ -172,6 +173,7 @@
             BackColor = Color.FromArgb(114, 97, 170);
             ClientSize = new Size(1004, 611);
             Controls.Add(MainPanel);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "KK.PasswordManager";

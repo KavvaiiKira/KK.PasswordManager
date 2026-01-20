@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegisterForm));
             RegistrationPanel = new TableLayoutPanel();
             NameTextBox = new TextBox();
             PINTextBox = new TextBox();
@@ -131,6 +132,7 @@
             ClientSize = new Size(344, 211);
             Controls.Add(RegistrationPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "RegisterForm";

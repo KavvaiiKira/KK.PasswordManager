@@ -66,7 +66,9 @@ namespace KK.PasswordManager
 
         private void LoadPasswords(IEnumerable<PasswordModel>? passwords = null)
         {
-            foreach (var password in passwords == null ? _passwordService.GetPasswords() : passwords)
+            foreach (var password in passwords == null ?
+                _passwordService.GetPasswords() :
+                passwords)
             {
                 password.Password = _passwordService.DecryptToString(password.Password);
 

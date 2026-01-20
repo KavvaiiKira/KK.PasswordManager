@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PINEnterForm));
             PINPanel = new TableLayoutPanel();
             PINTextBox = new TextBox();
             label1 = new Label();
@@ -84,6 +85,7 @@
             ClientSize = new Size(344, 101);
             Controls.Add(PINPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "PINEnterForm";
