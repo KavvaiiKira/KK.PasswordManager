@@ -64,11 +64,9 @@ namespace KK.PasswordManager
             }
         }
 
-        private void LoadPasswords()
+        private void LoadPasswords(IEnumerable<PasswordModel>? passwords = null)
         {
-            var passwords = _passwordService.GetPasswords();
-
-            foreach (var password in passwords)
+            foreach (var password in passwords == null ? _passwordService.GetPasswords() : passwords)
             {
                 password.Password = _passwordService.DecryptToString(password.Password);
 
@@ -87,10 +85,24 @@ namespace KK.PasswordManager
 
         private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
+            var search = SearchTextBox.Text.ToLower();
+
             if (SearchTextBox.Text.Length < 3)
             {
+                if (string.IsNullOrEmpty(search))
+                {
+                    LoadPasswords();
+                }
+
                 return;
             }
+
+            PasswordsPanel.Controls.Clear();
+
+            LoadPasswords(_passwordService.GetPasswords()
+                .Where(p =>
+                    p.Name.ToLower().Contains(search) ||
+                    p.Site.ToLower().Contains(search)));
         }
     }
 }
