@@ -8,10 +8,18 @@ namespace KK.PasswordManager.Components
         private readonly PasswordModel _password;
         private readonly TextBox _userNameTextBox;
         private readonly TextBox _passwordTextBox;
+        private readonly ContextMenuStrip _contextMenu;
 
-        public PasswordGroup(PasswordModel password)
+        public PasswordGroup(PasswordModel password, Action<int, string> deletePassword)
         {
             _password = password;
+
+            Name = _password.Name;
+
+            _contextMenu = new ContextMenuStrip();
+            SetContextMenu(deletePassword);
+
+            this.MouseClick += PasswordGroup_MouseClick;
 
             SetStyle(password.Name);
 
@@ -21,12 +29,32 @@ namespace KK.PasswordManager.Components
             SetPanels();
         }
 
+        public int GetId() => _password.Id;
+
+        public void SetId(int id) => _password.Id = id;
+
+        private void SetContextMenu(Action<int, string> deletePassword)
+        {
+            var deletePasswordMenuItem = new ToolStripMenuItem("Delete password");
+            deletePasswordMenuItem.Click += (o, e) => deletePassword(_password.Id, _password.Name);
+
+            _contextMenu.Items.Add(deletePasswordMenuItem);
+        }
+
+        private void PasswordGroup_MouseClick(object? sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                _contextMenu.Show(this, e.Location);
+            }
+        }
+
         private void SetStyle(string text)
         {
             Font = new Font("Unispace", 11F, FontStyle.Bold);
             ForeColor = Color.White;
             Text = text;
-            Width = 400;
+            Width = 480;
             Height = 180;
         }
 
@@ -86,7 +114,7 @@ namespace KK.PasswordManager.Components
                 ColumnStyles =
                 {
                     new ColumnStyle(SizeType.Absolute, 150F),
-                    new ColumnStyle(SizeType.Absolute, 250F)
+                    new ColumnStyle(SizeType.Absolute, 330F)
                 },
                 RowStyles =
                 {
@@ -137,7 +165,7 @@ namespace KK.PasswordManager.Components
             {
                 Font = new Font("Exo 2", 14F, FontStyle.Bold),
                 Text = GetTextBoxPasswordText(),
-                Width = 200,
+                Width = 300,
                 ReadOnly = true,
                 ForeColor = Color.Black,
                 Dock = DockStyle.Fill,

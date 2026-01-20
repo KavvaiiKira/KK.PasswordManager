@@ -36,7 +36,32 @@ namespace KK.PasswordManager
 
             _passwordService.AddPassword(passwordToAdd);
 
-            LoadPassword(passwordToAdd);
+            LoadPassword(passwordToAdd, DeletePassword);
+        }
+
+        private void DeletePassword(int passwordId, string name)
+        {
+            _passwordService.DeletePassword(passwordId);
+
+            var passwordGroupToRemove = PasswordsPanel.Controls
+                .Cast<PasswordGroup>()
+                .First(pg => pg.GetId() == passwordId);
+           
+            PasswordsPanel.Controls.Remove(passwordGroupToRemove);
+
+            if (PasswordsPanel.Controls.Count == 0)
+            {
+                return;
+            }
+
+            var passwordGroups = PasswordsPanel.Controls
+                .Cast<PasswordGroup>()
+                .Where(pg => pg.GetId() > passwordId);
+
+            foreach (var passwordGroup in passwordGroups)
+            {
+                passwordGroup.SetId(passwordGroup.GetId() - 1);
+            }
         }
 
         private void LoadPasswords()
@@ -45,15 +70,17 @@ namespace KK.PasswordManager
 
             foreach (var password in passwords)
             {
-                LoadPassword(password);
+                password.Password = _passwordService.DecryptToString(password.Password);
+
+                LoadPassword(password, DeletePassword);
             }
 
             PasswordsPanel.Refresh();
         }
 
-        private void LoadPassword(PasswordModel password)
+        private void LoadPassword(PasswordModel password, Action<int, string> deletePassword)
         {
-            var passwordGroup = new PasswordGroup(password);
+            var passwordGroup = new PasswordGroup(password, deletePassword);
 
             PasswordsPanel.Controls.Add(passwordGroup);
         }

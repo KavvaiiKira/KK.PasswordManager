@@ -43,11 +43,6 @@ namespace KK.PasswordManager.Services
                 return Enumerable.Empty<PasswordModel>();
             }
 
-            foreach (var password in passwords)
-            {
-                password.Password = DecryptToString(password.Password);
-            }
-
             return passwords;
         }
 
@@ -59,9 +54,15 @@ namespace KK.PasswordManager.Services
                 passwords.Max(x => x.Id) + 1 :
                 1;
 
-            newPassword.Password = EncryptPassword(newPassword.Password);
-
-            passwords.Add(newPassword);
+            passwords.Add(
+                new PasswordModel()
+                {
+                    Id = newPassword.Id,
+                    Name = newPassword.Name,
+                    Site = newPassword.Site,
+                    UserName = newPassword.UserName,
+                    Password = EncryptPassword(newPassword.Password)
+                });
 
             var json = JsonSerializer.Serialize(passwords);
 
@@ -84,30 +85,7 @@ namespace KK.PasswordManager.Services
             File.WriteAllText(_passwordsFilePath, json);
         }
 
-        private string EncryptPassword(string password)
-        {
-            using (var aes = Aes.Create())
-            {
-                aes.Key = _driveKey ;
-                aes.IV = _iv;
-                aes.Padding = PaddingMode.PKCS7;
-                aes.Mode = CipherMode.CBC;
-
-                using (var encryptor = aes.CreateEncryptor())
-                using (var ms = new MemoryStream())
-                {
-                    using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-                    using (var writer = new StreamWriter(cs, Encoding.UTF8))
-                    {
-                        writer.Write(password);
-                    }
-
-                    return Convert.ToBase64String(ms.ToArray());
-                }
-            }
-        }
-
-        private string DecryptToString(string cipherText)
+        public string DecryptToString(string cipherText)
         {
             var cipher = Convert.FromBase64String(cipherText);
 
@@ -123,6 +101,29 @@ namespace KK.PasswordManager.Services
                 using (var reader = new StreamReader(cs, Encoding.UTF8))
                 {
                     return reader.ReadToEnd();
+                }
+            }
+        }
+
+        private string EncryptPassword(string password)
+        {
+            using (var aes = Aes.Create())
+            {
+                aes.Key = _driveKey;
+                aes.IV = _iv;
+                aes.Padding = PaddingMode.PKCS7;
+                aes.Mode = CipherMode.CBC;
+
+                using (var encryptor = aes.CreateEncryptor())
+                using (var ms = new MemoryStream())
+                {
+                    using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                    using (var writer = new StreamWriter(cs, Encoding.UTF8))
+                    {
+                        writer.Write(password);
+                    }
+
+                    return Convert.ToBase64String(ms.ToArray());
                 }
             }
         }
