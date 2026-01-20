@@ -55,7 +55,7 @@
             MainPanel.RowCount = 2;
             MainPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
             MainPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            MainPanel.Size = new Size(984, 611);
+            MainPanel.Size = new Size(1004, 611);
             MainPanel.TabIndex = 0;
             // 
             // HeaderPanel
@@ -70,7 +70,7 @@
             HeaderPanel.Name = "HeaderPanel";
             HeaderPanel.RowCount = 1;
             HeaderPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            HeaderPanel.Size = new Size(978, 64);
+            HeaderPanel.Size = new Size(998, 64);
             HeaderPanel.TabIndex = 0;
             // 
             // SearchPanel
@@ -81,11 +81,11 @@
             SearchPanel.Controls.Add(SearchLabel, 0, 0);
             SearchPanel.Controls.Add(SearchTextBox, 1, 0);
             SearchPanel.Dock = DockStyle.Fill;
-            SearchPanel.Location = new Point(492, 3);
+            SearchPanel.Location = new Point(502, 3);
             SearchPanel.Name = "SearchPanel";
             SearchPanel.RowCount = 1;
             SearchPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            SearchPanel.Size = new Size(483, 58);
+            SearchPanel.Size = new Size(493, 58);
             SearchPanel.TabIndex = 1;
             // 
             // SearchLabel
@@ -96,7 +96,7 @@
             SearchLabel.Font = new Font("Exo 2 ExtraBold", 20F, FontStyle.Bold);
             SearchLabel.Location = new Point(3, 0);
             SearchLabel.Name = "SearchLabel";
-            SearchLabel.Size = new Size(235, 58);
+            SearchLabel.Size = new Size(240, 58);
             SearchLabel.TabIndex = 0;
             SearchLabel.Text = "Search:";
             SearchLabel.TextAlign = ContentAlignment.MiddleRight;
@@ -106,7 +106,7 @@
             SearchTextBox.Anchor = AnchorStyles.Left;
             SearchTextBox.BorderStyle = BorderStyle.FixedSingle;
             SearchTextBox.Font = new Font("Exo 2", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            SearchTextBox.Location = new Point(244, 11);
+            SearchTextBox.Location = new Point(249, 11);
             SearchTextBox.MaxLength = 255;
             SearchTextBox.Name = "SearchTextBox";
             SearchTextBox.Size = new Size(236, 36);
@@ -126,7 +126,7 @@
             NamePanel.Name = "NamePanel";
             NamePanel.RowCount = 1;
             NamePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            NamePanel.Size = new Size(483, 58);
+            NamePanel.Size = new Size(493, 58);
             NamePanel.TabIndex = 2;
             // 
             // NameLabel
@@ -137,7 +137,7 @@
             NameLabel.Font = new Font("Exo 2 ExtraBold", 20F, FontStyle.Bold);
             NameLabel.Location = new Point(3, 0);
             NameLabel.Name = "NameLabel";
-            NameLabel.Size = new Size(235, 58);
+            NameLabel.Size = new Size(240, 58);
             NameLabel.TabIndex = 0;
             NameLabel.Text = "Name";
             NameLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -148,9 +148,9 @@
             AddPasswordButton.Dock = DockStyle.Fill;
             AddPasswordButton.FlatStyle = FlatStyle.Flat;
             AddPasswordButton.Font = new Font("Exo 2", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            AddPasswordButton.Location = new Point(244, 3);
+            AddPasswordButton.Location = new Point(249, 3);
             AddPasswordButton.Name = "AddPasswordButton";
-            AddPasswordButton.Size = new Size(236, 52);
+            AddPasswordButton.Size = new Size(241, 52);
             AddPasswordButton.TabIndex = 1;
             AddPasswordButton.Text = "New Password";
             AddPasswordButton.UseVisualStyleBackColor = false;
@@ -158,10 +158,11 @@
             // 
             // PasswordsPanel
             // 
+            PasswordsPanel.AutoScroll = true;
             PasswordsPanel.Dock = DockStyle.Fill;
             PasswordsPanel.Location = new Point(3, 73);
             PasswordsPanel.Name = "PasswordsPanel";
-            PasswordsPanel.Size = new Size(978, 535);
+            PasswordsPanel.Size = new Size(998, 535);
             PasswordsPanel.TabIndex = 1;
             // 
             // MainForm
@@ -169,7 +170,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(114, 97, 170);
-            ClientSize = new Size(984, 611);
+            ClientSize = new Size(1004, 611);
             Controls.Add(MainPanel);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
