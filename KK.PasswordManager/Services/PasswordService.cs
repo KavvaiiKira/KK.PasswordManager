@@ -31,9 +31,24 @@ namespace KK.PasswordManager.Services
         public IEnumerable<PasswordModel> GetPasswords()
         {
             var json = File.ReadAllText(_passwordsFilePath);
+            if (string.IsNullOrEmpty(json))
+            {
+                return Enumerable.Empty<PasswordModel>();
+            }
+
             var passwords = JsonSerializer.Deserialize<IEnumerable<PasswordModel>>(json);
 
-            return passwords ?? Enumerable.Empty<PasswordModel>();
+            if (passwords == null || !passwords.Any())
+            {
+                return Enumerable.Empty<PasswordModel>();
+            }
+
+            foreach (var password in passwords)
+            {
+                password.Password = DecryptToString(password.Password);
+            }
+
+            return passwords;
         }
 
         public void AddPassword(PasswordModel newPassword)

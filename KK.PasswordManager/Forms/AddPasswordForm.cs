@@ -18,7 +18,6 @@ namespace KK.PasswordManager.Forms
             DialogResult = DialogResult.OK;
 
             if (string.IsNullOrWhiteSpace(NameTextBox.Text) ||
-                string.IsNullOrWhiteSpace(SiteTextBox.Text) ||
                 string.IsNullOrWhiteSpace(UserNameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(PasswordTextBox.Text))
             {
@@ -28,7 +27,7 @@ namespace KK.PasswordManager.Forms
             password = new PasswordModel()
             {
                 Name = NameTextBox.Text,
-                Site = SiteTextBox.Text,
+                Site = SiteTextBox.Text ?? string.Empty,
                 UserName = UserNameTextBox.Text,
                 Password = PasswordTextBox.Text
             };
