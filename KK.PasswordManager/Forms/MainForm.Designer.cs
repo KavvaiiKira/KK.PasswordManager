@@ -76,12 +76,12 @@
             // 
             // SearchPanel
             // 
+            SearchPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             SearchPanel.ColumnCount = 2;
             SearchPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             SearchPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             SearchPanel.Controls.Add(SearchLabel, 0, 0);
             SearchPanel.Controls.Add(SearchTextBox, 1, 0);
-            SearchPanel.Dock = DockStyle.Fill;
             SearchPanel.Location = new Point(502, 3);
             SearchPanel.Name = "SearchPanel";
             SearchPanel.RowCount = 1;

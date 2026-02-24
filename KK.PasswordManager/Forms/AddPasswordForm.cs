@@ -15,14 +15,14 @@ namespace KK.PasswordManager.Forms
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
-
             if (string.IsNullOrWhiteSpace(NameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(UserNameTextBox.Text) ||
                 string.IsNullOrWhiteSpace(PasswordTextBox.Text))
             {
                 return;
             }
+
+            DialogResult = DialogResult.OK;
 
             password = new PasswordModel()
             {

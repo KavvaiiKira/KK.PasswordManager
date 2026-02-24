@@ -161,7 +161,7 @@
             UserNameLabel.Name = "UserNameLabel";
             UserNameLabel.Size = new Size(298, 42);
             UserNameLabel.TabIndex = 3;
-            UserNameLabel.Text = "UserName:";
+            UserNameLabel.Text = "User name:";
             UserNameLabel.TextAlign = ContentAlignment.BottomLeft;
             // 
             // PasswordLabel

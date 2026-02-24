@@ -66,13 +66,22 @@ namespace KK.PasswordManager.Components
             panel.Controls.Add(GetLabel(FieldConstants.USER_NAME), 0, 1);
             panel.Controls.Add(GetLabel(FieldConstants.PASSWORD), 0, 2);
 
-            panel.Controls.Add(
+            var siteActionaPabel = GetActionsPanel(2);
+            var siteCopyToClipboardButton = GetCopyToClipboardButton();
+
+            siteCopyToClipboardButton.Click += (o, e) => CopyToClipboard(_password.Site);
+
+            siteActionaPabel.Controls.Add(
                 GetDataLabel(
                     string.IsNullOrWhiteSpace(_password.Site) ?
                         "None" :
                         _password.Site),
-                1,
+                0,
                 0);
+
+            siteActionaPabel.Controls.Add(siteCopyToClipboardButton, 1, 0);
+
+            panel.Controls.Add(siteActionaPabel, 1, 0);
 
             var userNameActionsPanel = GetActionsPanel();
             var userNameChangeViewButton = GetChangeViewButton();
@@ -124,8 +133,9 @@ namespace KK.PasswordManager.Components
                 }
             };
 
-        private TableLayoutPanel GetActionsPanel() =>
-            new TableLayoutPanel()
+        private TableLayoutPanel GetActionsPanel(int actionsNum = 3)
+        {
+            var tableLayout = new TableLayoutPanel()
             {
                 Dock = DockStyle.Fill,
                 ColumnCount = 3,
@@ -133,7 +143,6 @@ namespace KK.PasswordManager.Components
                 ColumnStyles =
                 {
                     new ColumnStyle(SizeType.Percent, 100F),
-                    new ColumnStyle(SizeType.Absolute, 50F),
                     new ColumnStyle(SizeType.Absolute, 50F)
                 },
                 RowStyles =
@@ -141,6 +150,14 @@ namespace KK.PasswordManager.Components
                     new RowStyle(SizeType.Percent, 100F)
                 }
             };
+
+            if (actionsNum == 3)
+            {
+                tableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            }
+
+            return tableLayout;
+        }
 
         private Label GetLabel(string text) =>
             GetDefauleLabel(text, 16F, ContentAlignment.MiddleRight);
