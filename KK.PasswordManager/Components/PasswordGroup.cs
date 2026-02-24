@@ -66,20 +66,24 @@ namespace KK.PasswordManager.Components
             panel.Controls.Add(GetLabel(FieldConstants.USER_NAME), 0, 1);
             panel.Controls.Add(GetLabel(FieldConstants.PASSWORD), 0, 2);
 
-            var siteActionaPabel = GetActionsPanel(2);
+            var hasSite = !string.IsNullOrWhiteSpace(_password.Site);
+            var siteActionaPabel = GetActionsPanel(hasSite ? 2 : 1);
             var siteCopyToClipboardButton = GetCopyToClipboardButton();
 
             siteCopyToClipboardButton.Click += (o, e) => CopyToClipboard(_password.Site);
 
             siteActionaPabel.Controls.Add(
                 GetDataLabel(
-                    string.IsNullOrWhiteSpace(_password.Site) ?
+                    !hasSite ?
                         "None" :
                         _password.Site),
                 0,
                 0);
 
-            siteActionaPabel.Controls.Add(siteCopyToClipboardButton, 1, 0);
+            if (hasSite)
+            {
+                siteActionaPabel.Controls.Add(siteCopyToClipboardButton, 1, 0);
+            }
 
             panel.Controls.Add(siteActionaPabel, 1, 0);
 
@@ -142,8 +146,7 @@ namespace KK.PasswordManager.Components
                 RowCount = 1,
                 ColumnStyles =
                 {
-                    new ColumnStyle(SizeType.Percent, 100F),
-                    new ColumnStyle(SizeType.Absolute, 50F)
+                    new ColumnStyle(SizeType.Percent, 100F)
                 },
                 RowStyles =
                 {
@@ -151,7 +154,7 @@ namespace KK.PasswordManager.Components
                 }
             };
 
-            if (actionsNum == 3)
+            for (int i = 0; i < actionsNum - 1; i++)
             {
                 tableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             }
